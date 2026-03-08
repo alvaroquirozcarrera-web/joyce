@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Para Joyce - 8M Dia de la Mujer</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0510;
+      --bg-card: #150d1c;
+      --fg: #fff8fc;
+      --accent: #f0abfc;
+      --accent-light: #fae8ff;
+      --accent-deep: #c026d3;
+      --purple: #9333ea;
+      --pink: #ec4899;
+      --border: rgba(240, 171, 252, 0.15);
+    }
+    
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Montserrat', sans-serif; background: var(--bg); color: var(--fg); min-height: 100vh; overflow-x: hidden; }
+    .font-display { font-family: 'Cormorant Garamond', serif; }
+    
+    .bg-layer { position: fixed; inset: 0; z-index: 0; background: radial-gradient(ellipse 90% 70% at 30% 20%, rgba(147, 51, 234, 0.12), transparent 50%), radial-gradient(ellipse 70% 50% at 70% 80%, rgba(236, 72, 153, 0.1), transparent 50%), radial-gradient(ellipse 50% 40% at 50% 50%, rgba(192, 38, 211, 0.08), transparent 50%); }
+    
+    .lines-bg { position: absolute; inset: 0; overflow: hidden; opacity: 0.04; }
+    .line { position: absolute; width: 100%; height: 1px; background: linear-gradient(90deg, transparent, var(--accent), transparent); animation: lineMove 6s ease-in-out infinite; }
+    @keyframes lineMove { 0%, 100% { transform: translateX(-50%); } 50% { transform: translateX(50%); } }
+    
+    .main-container { position: relative; z-index: 10; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 1.5rem; }
+    
+    .card { background: linear-gradient(155deg, rgba(21, 13, 28, 0.94), rgba(10, 5, 16, 0.97)); border: 1px solid var(--border); border-radius: 30px; max-width: 490px; width: 100%; overflow: hidden; box-shadow: 0 0 60px rgba(147, 51, 234, 0.08), 0 20px 50px rgba(0,0,0,0.4); opacity: 0; animation: cardIn 0.9s ease-out 0.2s forwards; }
+    @keyframes cardIn { from { opacity: 0; transform: translateY(30px) scale(0.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
+    
+    .top-section { background: linear-gradient(180deg, rgba(147, 51, 234, 0.1), transparent); padding: 2.5rem 2rem 2rem; text-align: center; position: relative; }
+    .badge-8m { position: absolute; top: 12px; right: 15px; background: linear-gradient(135deg, var(--purple), var(--pink)); color: white; padding: 0.35rem 0.9rem; border-radius: 18px; font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; }
+    
+    .photo-wrap { position: relative; width: 115px; height: 115px; margin: 0 auto 1.5rem; }
+    .ring-outer { position: absolute; inset: -7px; border-radius: 50%; background: conic-gradient(from 0deg, var(--purple), var(--accent-deep), var(--pink), var(--accent), var(--purple)); animation: spinRing 4s linear infinite; }
+    @keyframes spinRing { to { transform: rotate(360deg); } }
+    .ring-inner { position: absolute; inset: 2px; background: var(--bg-card); border-radius: 50%; }
+    .photo-wrap img { position: absolute; inset: 5px; width: calc(100% - 10px); height: calc(100% - 10px); object-fit: cover; border-radius: 50%; }
+    
+    .name-title { font-size: 2.45rem; font-weight: 700; background: linear-gradient(135deg, var(--accent-light), var(--pink)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 0.2rem; }
+    .subtitle { font-size: 0.75rem; letter-spacing: 4px; text-transform: uppercase; color: var(--purple); }
+    
+    .body-section { padding: 0 2rem 2rem; }
+    .message { font-size: 1rem; line-height: 1.9; color: rgba(255, 248, 252, 0.85); text-align: center; opacity: 0; animation: appear 0.7s ease-out 0.5s forwards; }
+    @keyframes appear { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+    .highlight { color: var(--accent-light); font-weight: 600; }
+    .divider { width: 65px; height: 2px; background: linear-gradient(90deg, transparent, var(--accent-deep), var(--pink), transparent); margin: 1.5rem auto; opacity: 0; animation: appear 0.7s ease-out 0.7s forwards; }
+    
+    .quote-box { margin: 1.5rem 0; padding: 1.2rem 1.4rem; background: rgba(147, 51, 234, 0.06); border-radius: 16px; border: 1px solid rgba(147, 51, 234, 0.12); position: relative; opacity: 0; animation: appear 0.7s ease-out 0.9s forwards; }
+    .quote-box::before { content: '"'; position: absolute; top: -8px; left: 12px; font-family: 'Cormorant Garamond', serif; font-size: 2.8rem; color: var(--purple); opacity: 0.4; }
+    .quote-text { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; font-style: italic; color: var(--accent-light); text-align: center; }
+    
+    .signature { text-align: center; font-size: 0.9rem; color: var(--accent-deep); font-style: italic; opacity: 0; animation: appear 0.7s ease-out 1.1s forwards; }
+
+    /* Estilo Botones */
+    .btn-container { display: flex; flex-direction: column; gap: 1rem; margin-top: 1.8rem; align-items: center; }
+
+    .celebrate-btn, .gift-btn {
+      display: flex; align-items: center; justify-content: center; gap: 0.65rem;
+      width: 100%; max-width: 280px; padding: 1rem 1.5rem;
+      border: none; border-radius: 50px;
+      font-family: 'Montserrat', sans-serif; font-size: 0.95rem; font-weight: 700;
+      cursor: pointer; transition: all 0.3s ease;
+      position: relative; overflow: hidden; opacity: 0;
+      animation: appear 0.7s ease-out 1.3s forwards;
+    }
+
+    .celebrate-btn {
+      background: linear-gradient(135deg, var(--purple), var(--accent-deep), var(--pink));
+      background-size: 200% 200%; color: white;
+      box-shadow: 0 8px 30px rgba(240, 171, 252, 0.3);
+      animation: appear 0.7s ease-out 1.3s forwards, gradShift 3s ease-in-out infinite;
+    }
+
+    .gift-btn {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--purple);
+      color: var(--accent-light);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    }
+
+    .celebrate-btn:hover, .gift-btn:hover { transform: scale(1.05) translateY(-2px); box-shadow: 0 12px 40px rgba(240, 171, 252, 0.4); }
+    .gift-btn:hover { background: rgba(147, 51, 234, 0.15); }
+
+    @keyframes gradShift { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+    .btn-icon { font-size: 1.35rem; animation: bobble 2s ease-in-out infinite; }
+    @keyframes bobble { 0%, 100% { transform: translateY(0) rotate(-3deg); } 50% { transform: translateY(-4px) rotate(3deg); } }
+    
+    #celebrationCanvas { position: fixed; inset: 0; z-index: 500; pointer-events: none; }
+    
+    /* Modales */
+    .modal-overlay { position: fixed; inset: 0; z-index: 600; display: flex; align-items: center; justify-content: center; padding: 1.5rem; opacity: 0; visibility: hidden; transition: all 0.4s ease; }
+    .modal-overlay.active { opacity: 1; visibility: visible; }
+    .modal-backdrop { position: absolute; inset: 0; background: rgba(10, 5, 16, 0.6); backdrop-filter: blur(4px); }
+    .modal-content { position: relative; background: linear-gradient(155deg, rgba(21, 13, 28, 0.95), rgba(10, 5, 16, 0.98)); border: 1px solid var(--border); border-radius: 26px; padding: 2.5rem 2rem; max-width: 370px; text-align: center; transform: scale(0.85); transition: transform 0.4s ease; }
+    .modal-overlay.active .modal-content { transform: scale(1); }
+    .modal-badge { display: inline-block; background: linear-gradient(135deg, var(--purple), var(--pink)); color: white; padding: 0.3rem 0.9rem; border-radius: 15px; font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; margin-bottom: 1rem; }
+    .modal-title { font-size: 1.85rem; background: linear-gradient(135deg, var(--accent-light), var(--pink)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 0.8rem; }
+    .modal-text { color: rgba(255, 248, 252, 0.82); line-height: 1.75; margin-bottom: 1.5rem; font-size: 0.95rem; }
+    .close-btn { background: transparent; border: 2px solid var(--accent); color: var(--accent-light); padding: 0.55rem 1.6rem; border-radius: 25px; font-family: 'Montserrat', sans-serif; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; }
+    .close-btn:hover { background: var(--accent); color: white; }
+
+    @media (max-width: 640px) { .top-section { padding: 2rem 1.5rem 1.5rem; } .body-section { padding: 0 1.5rem 1.5rem; } .name-title { font-size: 2.1rem; } }
+  </style>
+</head>
+<body>
+  <canvas id="celebrationCanvas"></canvas>
+  
+  <div class="bg-layer">
+    <div class="lines-bg">
+      <div class="line" style="top: 25%;"></div>
+      <div class="line" style="top: 50%; animation-delay: -2s;"></div>
+      <div class="line" style="top: 75%; animation-delay: -4s;"></div>
+    </div>
+  </div>
+  
+  <div class="main-container">
+    <div class="card">
+      <div class="top-section">
+        <span class="badge-8m">8M</span>
+        <div class="photo-wrap">
+          <div class="ring-outer"></div>
+          <div class="ring-inner"></div>
+          <img src="joyce.png" alt="Joyce">
+        </div>
+        <h1 class="font-display name-title">Joyce</h1>
+        <p class="subtitle">Feliz Día Internacional de la Mujer</p>
+      </div>
+      
+      <div class="body-section">
+        <p class="message">
+          Junto con Mayra, fueron un duo increible que me hizo 
+          reflexionar sobre mi <span class="highlight">preparacion 
+          y experiencia</span>. Sus preguntas inspiraban crecimiento.
+        </p>
+        
+        <div class="divider"></div>
+        
+        <div class="quote-box">
+          <p class="quote-text">Hoy es un buen día para reconocer a las mujeres que con su trabajo, liderazgo y dedicación marcan la diferencia cada día.</p>
+        </div>
+        
+        <p class="message">
+          Tu forma de liderar y afrontar los retos demuestra que la capacidad, la inteligencia y la determinación no tienen límites.
+        </p>
+        
+        <p class="signature">Con gratitud y respeto<br>Alvaro</p>
+        
+        <div class="btn-container">
+            <button class="celebrate-btn" id="celebrateBtn">
+              <span class="btn-icon">✨</span>
+              <span>Presiona aquí</span>
+            </button>
+
+            <button class="gift-btn" id="giftBtn">
+                <span class="btn-icon">🎁</span>
+                <span>Un detalle especial</span>
+            </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="modal-overlay" id="modal">
+    <div class="modal-backdrop" id="modalBackdrop"></div>
+    <div class="modal-content">
+      <span class="modal-badge">DIA DE LA MUJER</span>
+      <h2 class="font-display modal-title">Feliz 8M, Joyce</h2>
+      <p class="modal-text">
+        Que este día sea también un momento para reconocer todo lo que aportas con tu esfuerzo y compromiso. Te deseo un muy feliz Día de la Mujer, lleno de reconocimiento, alegría y muchos éxitos.
+      </p>
+      <button class="close-btn" id="closeModal">Cerrar</button>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="giftModal">
+    <div class="modal-backdrop" id="giftModalBackdrop"></div>
+    <div class="modal-content">
+      <span class="modal-badge" id="giftStatusLabel">PRÓXIMAMENTE</span>
+      <h2 class="font-display modal-title" id="giftTitle">Un momento...</h2>
+      <p class="modal-text" id="giftText">Cargando sorpresa...</p>
+      <button class="close-btn" id="closeGiftModal">Entendido</button>
+    </div>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('celebrationCanvas');
+    const ctx = canvas.getContext('2d');
+    function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+    
+    const colors = ['#9333ea', '#a855f7', '#c026d3', '#ec4899', '#f0abfc', '#f472b6', '#d946ef'];
+    
+    class Balloon {
+      constructor() { this.x = Math.random() * canvas.width; this.y = canvas.height + 120; this.radius = 24 + Math.random() * 18; this.color = colors[Math.floor(Math.random() * colors.length)]; this.speedY = -(1.7 + Math.random() * 1.4); this.wobble = Math.random() * Math.PI * 2; this.wobbleSpeed = 0.02 + Math.random() * 0.018; this.stringLength = 38 + Math.random() * 28; this.scale = 0; }
+      update() { this.y += this.speedY; this.wobble += this.wobbleSpeed; this.x += Math.sin(this.wobble) * 1.1; this.scale = Math.min(1, this.scale + 0.045); }
+      draw() { ctx.save(); ctx.translate(this.x, this.y); ctx.scale(this.scale, this.scale); ctx.beginPath(); ctx.ellipse(0, 0, this.radius, this.radius * 1.15, 0, 0, Math.PI * 2); const grad = ctx.createRadialGradient(-this.radius * 0.28, -this.radius * 0.38, 0, 0, 0, this.radius); grad.addColorStop(0, this.lighten(this.color, 38)); grad.addColorStop(0.5, this.color); grad.addColorStop(1, this.darken(this.color, 22)); ctx.fillStyle = grad; ctx.fill(); ctx.beginPath(); ctx.ellipse(-this.radius * 0.26, -this.radius * 0.4, this.radius * 0.15, this.radius * 0.26, -0.35, 0, Math.PI * 2); ctx.fillStyle = 'rgba(255,255,255,0.4)'; ctx.fill(); ctx.restore(); }
+      lighten(c, p) { const n = parseInt(c.slice(1), 16); const a = Math.round(2.55 * p); return '#' + (0x1000000 + Math.min(255, (n >> 16) + a) * 0x10000 + Math.min(255, ((n >> 8) & 0xFF) + a) * 0x100 + Math.min(255, (n & 0xFF) + a)).toString(16).slice(1); }
+      darken(c, p) { const n = parseInt(c.slice(1), 16); const a = Math.round(2.55 * p); return '#' + (0x1000000 + Math.max(0, (n >> 16) - a) * 0x10000 + Math.max(0, ((n >> 8) & 0xFF) - a) * 0x100 + Math.max(0, (n & 0xFF) - a)).toString(16).slice(1); }
+      isDone() { return this.y < -170; }
+    }
+    
+    class Confetti {
+      constructor() { this.x = Math.random() * canvas.width; this.y = -10; this.size = 5 + Math.random() * 8; this.color = colors[Math.floor(Math.random() * colors.length)]; this.speedY = 1.8 + Math.random() * 2.2; this.speedX = (Math.random() - 0.5) * 2.5; this.rotation = Math.random() * Math.PI * 2; this.rotSpeed = (Math.random() - 0.5) * 0.09; this.alpha = 1; }
+      update() { this.y += this.speedY; this.x += this.speedX + Math.sin(this.y * 0.022) * 0.7; this.rotation += this.rotSpeed; if (this.y > canvas.height * 0.72) this.alpha -= 0.014; }
+      draw() { if (this.alpha <= 0) return; ctx.save(); ctx.globalAlpha = this.alpha; ctx.translate(this.x, this.y); ctx.rotate(this.rotation); ctx.fillStyle = this.color; ctx.fillRect(-this.size/2, -this.size/5, this.size, this.size/2.5); ctx.restore(); }
+      isDone() { return this.y > canvas.height + 25 || this.alpha <= 0; }
+    }
+    
+    let balloons = [], confettis = [], active = false;
+    
+    function startCelebration() { active = true; for (let i = 0; i < 14; i++) setTimeout(() => balloons.push(new Balloon()), i * 190); for (let i = 0; i < 75; i++) setTimeout(() => confettis.push(new Confetti()), i * 42); animate(); setTimeout(() => document.getElementById('modal').classList.add('active'), 1800); }
+    function animate() { ctx.clearRect(0, 0, canvas.width, canvas.height); balloons = balloons.filter(b => !b.isDone()); balloons.forEach(b => { b.update(); b.draw(); }); confettis = confettis.filter(c => !c.isDone()); confettis.forEach(c => { c.update(); c.draw(); }); if (active) requestAnimationFrame(animate); }
+
+    function checkGift() {
+      const now = new Date();
+      const targetDate = new Date('2026-03-09T08:00:00');
+      const modal = document.getElementById('giftModal');
+      const title = document.getElementById('giftTitle');
+      const text = document.getElementById('giftText');
+      const label = document.getElementById('giftStatusLabel');
+
+      if (now < targetDate) {
+        label.textContent = "PRÓXIMAMENTE";
+        title.textContent = "¡Casi listo!";
+        text.innerHTML = "Este regalo se activará a las <strong>8:00 AM del 09/03/2026</strong>.<br><br>Vuelve mañana para ver el detalle especial.";
+      } else {
+        label.textContent = "REGALO DISPONIBLE";
+        title.textContent = "Para ti, Joyce";
+        text.innerHTML = "¡Espero que te haya gustado mucho tu regalo! <br><br> Gracias por inspirar crecimiento con tu liderazgo.";
+      }
+      modal.classList.add('active');
+    }
+    
+    document.getElementById('celebrateBtn').addEventListener('click', startCelebration);
+    document.getElementById('giftBtn').addEventListener('click', checkGift);
+    document.getElementById('closeModal').addEventListener('click', () => document.getElementById('modal').classList.remove('active'));
+    document.getElementById('modalBackdrop').addEventListener('click', () => document.getElementById('modal').classList.remove('active'));
+    document.getElementById('closeGiftModal').addEventListener('click', () => document.getElementById('giftModal').classList.remove('active'));
+    document.getElementById('giftModalBackdrop').addEventListener('click', () => document.getElementById('giftModal').classList.remove('active'));
+  </script>
+</body>
+</html>
